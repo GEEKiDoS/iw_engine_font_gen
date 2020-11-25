@@ -229,13 +229,16 @@ int main()
 					list.push_back(i);
 
 				std::sort(list.begin(), list.end(), [io](int a, int b)
-					{
-						return (io.Fonts->Fonts[0]->Glyphs[a].Codepoint < io.Fonts->Fonts[0]->Glyphs[b].Codepoint);
-					});
+				{
+					return (io.Fonts->Fonts[0]->Glyphs[a].Codepoint < io.Fonts->Fonts[0]->Glyphs[b].Codepoint);
+				});
 
 				for (int i = 0; i < io.Fonts->Fonts[0]->Glyphs.Size; i++)
 				{
 					ImFontGlyph& glyph = io.Fonts->Fonts[0]->Glyphs[list[i]];
+
+					if (glyph.Codepoint < 32)
+						continue;
 
 					fprintf(f, "{");
 					fprintf(f, "\"letter\":%d,", glyph.Codepoint);
